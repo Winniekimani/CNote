@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //forgotten comment
 
         notebook_rc = findViewById(R.id.notebook_rc);
         notebookModelArrayList = new ArrayList<>();
