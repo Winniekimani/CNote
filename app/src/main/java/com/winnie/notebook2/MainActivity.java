@@ -1,10 +1,13 @@
 package com.winnie.notebook2;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -12,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView notebook_rc;
     ArrayList<NotebookModel>notebookModelArrayList;
-
+    FloatingActionButton add_note_fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         //forgotten comment
 
+
         notebook_rc = findViewById(R.id.notebook_rc);
+        add_note_fab = findViewById(R.id.add_note_fab);
         notebookModelArrayList = new ArrayList<>();
 
         NotebookModel notebookModel = new NotebookModel();
@@ -64,5 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         notebook_rc.setAdapter(notebookAdapter);
         notebook_rc.setLayoutManager(linearLayoutManager);
+
+        add_note_fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
+            startActivity(intent);
+        });
     }
 }

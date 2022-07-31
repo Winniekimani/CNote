@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/activity_add_notes.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/add_notes.xml" value="0.22" />
         <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/familyaffair_notebookview.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/notebookview.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/Winnie/AndroidStudioProjects/Notebook2/app/src/main/res/layout/personal_notebookview.xml" value="0.16354166666666667" />
@@ -18,5 +20,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.3333333333333333" />
+      </ProjectState>
+    </option>
   </component>
 </project>

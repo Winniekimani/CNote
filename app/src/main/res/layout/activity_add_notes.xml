@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNotesActivity">
+
+    <RelativeLayout
+        android:id="@+id/RL0"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:background="#0D000000"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:text="@string/cancel"
+            android:textColor="#90ee90"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:text="@string/save"
+            android:textColor="#90ee90"
+            android:textSize="16sp"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RL0"
+        android:layout_above="@+id/RL2"
+        android:id="@+id/relativelayout_1">
+
+
+        <EditText
+            android:id="@+id/write_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/type_note"
+            android:inputType="textMultiLine" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/RL2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="2dp"
+        android:background="#00000000">
+
+        <ImageView
+            android:id="@+id/category"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:layout_weight="1"
+            android:src="@drawable/category_outlined" />
+
+        <ImageView
+            android:id="@+id/work"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/work_outlined" />
+
+        <ImageView
+            android:id="@+id/family"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/family_outlined" />
+
+        <ImageView
+            android:id="@+id/study"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/study_outlined" />
+
+        <ImageView
+            android:id="@+id/personal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/personal_outlined" />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</RelativeLayout>

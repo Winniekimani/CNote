@@ -5,4 +5,7 @@
     <string name="study">study</string>
     <string name="_22_7_2022">22/7/2022</string>
     <string name="uncategorized">uncategorized</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="type_note">Type note</string>
 </resources>
