@@ -1,6 +1,9 @@
 package com.winnie.notebook2;
 
-public class NotebookModel  {
+import java.io.Serializable;
+
+public class NotebookModel  implements Serializable {
+
     String  content;
     String category;
     long datetime;

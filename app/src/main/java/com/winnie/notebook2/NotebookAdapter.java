@@ -1,6 +1,8 @@
 package com.winnie.notebook2;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,17 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
 
         holder.content.setText(notebookModel.getContent());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,NoteDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("note",notebookModel);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -67,9 +80,9 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
             return STUDY_NOTEBOOK;
         }else if (notebookModelArrayList.get(position).getCategory().equals("work")){
             return WORK_NOTEBOOK;
-        }else if (notebookModelArrayList.get(position).getCategory().equals("personal ")){
+        }else if (notebookModelArrayList.get(position).getCategory().equals("personal")){
             return PERSONAL_NOTEBOOK;
-        }else if (notebookModelArrayList.get(position).getCategory().equals("family")){
+        }else if (notebookModelArrayList.get(position).getCategory().contains("family")){
             return FAMILY_AFFAIR_NOTEBOOK;
         }else
             return UNCATEGORIZED_NOTEBOOK;

@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         notebookModel2.setContent("This is a test note for personal ilkmunjycfedxs");
 
         NotebookModel notebookModel3 = new NotebookModel();
-        notebookModel3.setCategory("family");
-        notebookModel3.setContent("This is a test note for work ilkmunjycfedxs");
+        notebookModel3.setCategory("family affair");
+        notebookModel3.setContent("This is a test note for family ilkmunjycfedxs");
 
         NotebookModel notebookModel4 = new NotebookModel();
         notebookModel4.setCategory("uncategorized");
-        notebookModel4.setContent("This is a test note for work ilkmunjycfedxs");
+        notebookModel4.setContent("This is a test note for uncat ilkmunjycfedxs");
 
         notebookModelArrayList.add(notebookModel);
         notebookModelArrayList.add(notebookModel1);
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 50; i++){
             notebookModelArrayList.add(notebookModelArrayList.get(i));
         }
-
 
 
 
