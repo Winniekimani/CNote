@@ -13,6 +13,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     private TextView note_category;
     private NotebookModel notebookModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         noteContent.setOnClickListener(view -> toAddNotesActivity());
 
+
         findViewById(R.id.edit_note_fab).setOnClickListener(view -> toAddNotesActivity());
 
 
@@ -52,6 +54,9 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
     private void toAddNotesActivity() {
         Intent intent = new Intent(NoteDetailsActivity.this, AddNotesActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("content",notebookModel);
+       intent.putExtras(bundle);
         startActivity(intent);
     }
 }

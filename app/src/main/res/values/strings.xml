@@ -8,4 +8,7 @@
     <string name="save">SAVE</string>
     <string name="cancel">CANCEL</string>
     <string name="type_note">Type note</string>
+    <string name="delete_all_notes">Delete all notes</string>
+    <string name="sort_by_tabs">Sort by tabs</string>
+    <string name="sort_by_modified_time">Sort by modified time</string>
 </resources>

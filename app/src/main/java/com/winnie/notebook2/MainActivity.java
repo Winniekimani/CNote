@@ -2,6 +2,7 @@ package com.winnie.notebook2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView notebook_rc;
-    ArrayList<NotebookModel>notebookModelArrayList;
+    ArrayList<NotebookModel> notebookModelArrayList;
     FloatingActionButton add_note_fab;
 
     @Override
@@ -57,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
         notebookModelArrayList.add(notebookModel4);
 
         //adding notebooks to 50
-        for (int i = 0; i < 50; i++){
+        for (int i = 0; i < 50; i++) {
             notebookModelArrayList.add(notebookModelArrayList.get(i));
         }
-
 
 
         NotebookAdapter notebookAdapter = new NotebookAdapter(this, notebookModelArrayList);
@@ -73,5 +73,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
             startActivity(intent);
         });
+
+        PopupMenu popup = new PopupMenu(MainActivity.this, findViewById(R.id.overflow_menu));
+        popup.inflate(R.menu.overflow_menu);
+        popup.setOnMenuItemClickListener(menuItem -> true);
+
+        findViewById(R.id.overflow_menu).setOnClickListener(v -> popup.show());
+        findViewById(R.id.overflow_menu).setOnTouchListener(popup.getDragToOpenListener());
+
     }
 }

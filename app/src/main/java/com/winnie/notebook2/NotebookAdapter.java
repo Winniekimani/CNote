@@ -67,6 +67,8 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
             }
         });
 
+
+
     }
 
     @Override

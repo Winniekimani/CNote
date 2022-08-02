@@ -13,6 +13,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
     private boolean isCategoryClicked, isWorkClicked, isFamilyClicked,
             isStudyClicked, isPersonalClicked;
+    private NotebookModel notebookModel;
 
 
 
@@ -23,12 +24,17 @@ public class AddNotesActivity extends AppCompatActivity {
 
         //back
 
+        notebookModel = (NotebookModel) getIntent().getExtras().getSerializable("content");
+
 
         category = findViewById(R.id.category);
         work = findViewById(R.id.work);
         family = findViewById(R.id.family);
         study = findViewById(R.id.study);
         personal = findViewById(R.id.personal);
+
+
+
 
         category.setOnClickListener(view -> {
 
@@ -153,6 +159,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 }
