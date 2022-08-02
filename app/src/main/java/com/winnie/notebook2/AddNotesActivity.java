@@ -2,6 +2,7 @@ package com.winnie.notebook2;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -11,8 +12,11 @@ public class AddNotesActivity extends AppCompatActivity {
 
     private ImageView category, work, family, study, personal;
 
+    private EditText edt_write_note;
+
     private boolean isCategoryClicked, isWorkClicked, isFamilyClicked,
             isStudyClicked, isPersonalClicked;
+
     private NotebookModel notebookModel;
 
 
@@ -32,6 +36,9 @@ public class AddNotesActivity extends AppCompatActivity {
         family = findViewById(R.id.family);
         study = findViewById(R.id.study);
         personal = findViewById(R.id.personal);
+        edt_write_note = findViewById(R.id.edt_write_note);
+
+        edt_write_note.setText(notebookModel.getContent());
 
 
 

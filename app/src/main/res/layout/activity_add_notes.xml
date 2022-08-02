@@ -46,7 +46,7 @@
 
 
         <EditText
-            android:id="@+id/write_note"
+            android:id="@+id/edt_write_note"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"

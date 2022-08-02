@@ -52,6 +52,7 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
     @Override
     public void onBindViewHolder(@NonNull NotebookAdapter.NotebookViewHolder holder, int position) {
 
+
         NotebookModel notebookModel = notebookModelArrayList.get(position);
 
         holder.content.setText(notebookModel.getContent());
@@ -98,6 +99,7 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
 
         public NotebookViewHolder(@NonNull View itemView) {
             super(itemView);
+
             content = itemView.findViewById(R.id.content);
             datetime = itemView.findViewById(R.id.datetime);
 
