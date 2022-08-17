@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddNotesActivity">
 
     <RelativeLayout
@@ -15,7 +15,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/cancel_btn"
+            android:id="@+id/txt_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -25,7 +25,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/save_btn"
+            android:id="@+id/txt_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -38,21 +38,47 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativelayout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RL0"
         android:layout_above="@+id/RL2"
-        android:id="@+id/relativelayout_1">
+        android:layout_below="@+id/RL0">
 
 
         <EditText
             android:id="@+id/edt_write_note"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/img_photo_uploaded"
+            android:layout_alignParentTop="true"
             android:background="@null"
             android:gravity="start"
             android:hint="@string/type_note"
             android:inputType="textMultiLine" />
+
+        <ImageView
+            android:id="@+id/img_photo_uploaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+          android:layout_above="@+id/add_photo"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:maxWidth="180dp"
+            android:maxHeight="180dp" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Add photo"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_baseline_add_24"
+            app:iconTint="@color/white" />
+
 
     </RelativeLayout>
 
@@ -61,15 +87,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="2dp"
-        android:background="#00000000">
+        android:background="#00000000"
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/category"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="4dp"
             android:layout_weight="1"
+            android:padding="4dp"
             android:src="@drawable/category_outlined" />
 
         <ImageView
@@ -106,11 +132,6 @@
 
 
     </LinearLayout>
-
-
-
-
-
 
 
 

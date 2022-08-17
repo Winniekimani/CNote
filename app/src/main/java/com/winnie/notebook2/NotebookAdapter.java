@@ -11,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.NotebookViewHolder> {
 
@@ -57,6 +60,20 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
 
         holder.content.setText(notebookModel.getContent());
 
+        long long_date = notebookModel.getDatetime(); //765467756
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyHHmm");
+        Date date = null;
+        try {
+            date = (Date) dateFormat.parseObject(long_date + "");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(date);
+
+        holder.datetime.setText(String.valueOf(date));
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +109,6 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.Notebo
     }
 
     public class NotebookViewHolder extends RecyclerView.ViewHolder{
-
 
         TextView content;
         TextView datetime;

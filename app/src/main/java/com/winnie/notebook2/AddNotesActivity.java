@@ -1,12 +1,27 @@
 package com.winnie.notebook2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import io.paperdb.Paper;
 
 public class AddNotesActivity extends AppCompatActivity {
 
@@ -18,17 +33,104 @@ public class AddNotesActivity extends AppCompatActivity {
             isStudyClicked, isPersonalClicked;
 
     private NotebookModel notebookModel;
+    private String from;
+    private ActivityResultLauncher<Intent> intentActivityResultLauncher;
+    private Uri image_uri;
 
 
+    TextView txt_save_btn,txt_cancel_btn;
+    ExtendedFloatingActionButton add_photo;
+    private ImageView img_photo_uploaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
 
+        notebookModel = new NotebookModel();
+
+        txt_save_btn=findViewById(R.id.txt_save_btn);
+        txt_cancel_btn = findViewById(R.id.txt_cancel_btn);
+        add_photo = findViewById(R.id.add_photo);
+        img_photo_uploaded = findViewById(R.id.img_photo_uploaded);
+
+
+        notebookModel.setCategory("");
+
+        Paper.init(this);
+
+        List<NotebookModel> notebookModelList = Paper.book().read("notes", new ArrayList<>());
+
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                image_uri = result.getData().getData();
+                Glide.with(this).load(image_uri).into(img_photo_uploaded);
+
+                notebookModel.setImage_url(image_uri.toString());
+
+            }
+        });
+
+        txt_save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (notebookModel.getCategory() != null){
+
+                    notebookModel.setContent(edt_write_note.getText().toString());
+                    notebookModel.setDatetime(new Date().getTime()); // 75645345465
+
+
+                    notebookModelList.add(notebookModel);
+
+                    Paper.book().write("notes", notebookModelList);
+                    Toast.makeText(AddNotesActivity.this, "note saved", Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(AddNotesActivity.this,MainActivity.class));
+
+
+                } else {
+                    notebookModel.setCategory("uncategorized");
+                    notebookModel.setContent(edt_write_note.getText().toString());
+                    notebookModel.setDatetime(new Date().getTime());
+
+
+                    notebookModelList.add(notebookModel);
+
+                    Paper.book().write("notes", notebookModelList);
+                    Toast.makeText(AddNotesActivity.this, "note saved", Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(AddNotesActivity.this,MainActivity.class));
+                }
+
+            }
+        });
+
+        txt_cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AddNotesActivity.super.onBackPressed();
+            }
+        });
+
+        add_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+
+
+            }
+        });
         //back
 
-        notebookModel = (NotebookModel) getIntent().getExtras().getSerializable("content");
+        from = getIntent().getExtras().getString("from");
+        if (from.equals("B")) {
+            notebookModel = (NotebookModel) getIntent().getExtras().getSerializable("content");
+        } else if (from.equals("A")){
+            notebookModel = new NotebookModel();
+        }
+
 
 
         category = findViewById(R.id.category);
@@ -41,13 +143,15 @@ public class AddNotesActivity extends AppCompatActivity {
         edt_write_note.setText(notebookModel.getContent());
 
 
-
-
         category.setOnClickListener(view -> {
+
+            notebookModel.setCategory("uncategorized");
 
             Toast toast = Toast.makeText(AddNotesActivity.this, "Uncategorized", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
+
 
             if (!isCategoryClicked) {
                 category.setImageResource(R.drawable.category_filled);
@@ -70,9 +174,13 @@ public class AddNotesActivity extends AppCompatActivity {
 
         work.setOnClickListener(view -> {
 
+            notebookModel.setCategory("work");
+
             Toast toast = Toast.makeText(AddNotesActivity.this, "Work", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
+
 
             if (!isWorkClicked) {
                 work.setImageResource(R.drawable.work_filled);
@@ -93,6 +201,8 @@ public class AddNotesActivity extends AppCompatActivity {
         });
 
         family.setOnClickListener(view -> {
+
+            notebookModel.setCategory("family affair");
 
             Toast toast = Toast.makeText(AddNotesActivity.this, "Family affair", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -118,6 +228,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
         study.setOnClickListener(view -> {
 
+            notebookModel.setCategory("study");
             Toast toast = Toast.makeText(AddNotesActivity.this, "Study", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -143,6 +254,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
         personal.setOnClickListener(view -> {
 
+            notebookModel.setCategory("personal");
             Toast toast = Toast.makeText(AddNotesActivity.this, "Personal", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -167,6 +279,14 @@ public class AddNotesActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void openGallery() {
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            intentActivityResultLauncher.launch(intent);
 
     }
 }

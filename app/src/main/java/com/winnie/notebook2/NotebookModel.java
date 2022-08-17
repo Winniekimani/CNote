@@ -6,15 +6,18 @@ public class NotebookModel  implements Serializable {
 
     String  content;
     String category;
+    String image_url;
     long datetime;
 
     public NotebookModel() {
     }
 
-    public NotebookModel(String content, String category, long datetime) {
+    public NotebookModel(String content, String category,String image_url, long datetime) {
         this.content = content;
         this.category = category;
+        this.image_url = image_url;
         this.datetime = datetime;
+
     }
 
     public String getContent() {
@@ -27,6 +30,14 @@ public class NotebookModel  implements Serializable {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public void setCategory(String category) {

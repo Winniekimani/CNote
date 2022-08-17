@@ -1,7 +1,10 @@
 package com.winnie.notebook2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,44 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //forgotten comment
-
+        Paper.init(this);
 
         notebook_rc = findViewById(R.id.notebook_rc);
         add_note_fab = findViewById(R.id.add_note_fab);
-        notebookModelArrayList = new ArrayList<>();
 
-        NotebookModel notebookModel = new NotebookModel();
-        notebookModel.setCategory("study");
-        notebookModel.setContent("This is a test note for study ilkmunjycfedxs");
-
-        NotebookModel notebookModel1 = new NotebookModel();
-        notebookModel1.setCategory("work");
-        notebookModel1.setContent("This is a test note for work ilkmunjycfedxs");
-
-
-        NotebookModel notebookModel2 = new NotebookModel();
-        notebookModel2.setCategory("personal");
-        notebookModel2.setContent("This is a test note for personal ilkmunjycfedxs");
-
-        NotebookModel notebookModel3 = new NotebookModel();
-        notebookModel3.setCategory("family affair");
-        notebookModel3.setContent("This is a test note for family ilkmunjycfedxs");
-
-        NotebookModel notebookModel4 = new NotebookModel();
-        notebookModel4.setCategory("uncategorized");
-        notebookModel4.setContent("This is a test note for uncat ilkmunjycfedxs");
-
-        notebookModelArrayList.add(notebookModel);
-        notebookModelArrayList.add(notebookModel1);
-        notebookModelArrayList.add(notebookModel2);
-        notebookModelArrayList.add(notebookModel3);
-        notebookModelArrayList.add(notebookModel4);
-
-        //adding notebooks to 50
-        for (int i = 0; i < 50; i++) {
-            notebookModelArrayList.add(notebookModelArrayList.get(i));
-        }
+        notebookModelArrayList = Paper.book().read("notes", new ArrayList<>());
 
 
         NotebookAdapter notebookAdapter = new NotebookAdapter(this, notebookModelArrayList);
@@ -71,12 +46,53 @@ public class MainActivity extends AppCompatActivity {
 
         add_note_fab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("from","A");
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 
         PopupMenu popup = new PopupMenu(MainActivity.this, findViewById(R.id.overflow_menu));
         popup.inflate(R.menu.overflow_menu);
-        popup.setOnMenuItemClickListener(menuItem -> true);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.delete_all:
+
+
+                        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE);
+                        sweetAlertDialog.setTitleText("Are you sure?");
+                        sweetAlertDialog.setContentText("All notes will be deleted!");
+                        sweetAlertDialog.setConfirmButton("Delete", new SweetAlertDialog.OnSweetClickListener() {
+                            @SuppressLint("NotifyDataSetChanged")
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                notebookModelArrayList.clear();
+                                Paper.book().delete("notes");
+                                Objects.requireNonNull(notebook_rc.getAdapter()).
+                                        notifyDataSetChanged();
+                                sweetAlertDialog.dismissWithAnimation();
+
+                            }
+                        });
+                        sweetAlertDialog.setConfirmButtonTextColor(Color.parseColor("#ff0000"));
+
+                        sweetAlertDialog.setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        });
+                        sweetAlertDialog.setCancelButtonTextColor(Color.parseColor("#000000"));
+                        sweetAlertDialog.show();
+
+                }
+
+                return true;
+            }
+        });
 
         findViewById(R.id.overflow_menu).setOnClickListener(v -> popup.show());
         findViewById(R.id.overflow_menu).setOnTouchListener(popup.getDragToOpenListener());
